@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Disallow: /assets/
+Disallow: /artiklar/articles.json
+
+Sitemap: https://svenskaprov.se/sitemap.xml

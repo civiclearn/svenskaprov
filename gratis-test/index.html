@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gratis provtest – Språkprovet för medborgarskap | SvenskaProv.se</title>
+
+  <meta name="description" content="Testa din svenska gratis med läsförståelse och hörförståelse på B1-nivå. Automatisk rättning – ingen registrering krävs.">
+  <link rel="canonical" href="https://svenskaprov.se/gratis-test/">
+
+  <meta property="og:title" content="Gratis provtest – SvenskaProv.se">
+  <meta property="og:description" content="Testa din svenska gratis med läsförståelse och hörförståelse på B1-nivå. Automatisk rättning – ingen registrering krävs.">
+  <meta property="og:url" content="https://svenskaprov.se/gratis-test/">
+
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/newhome.css">
+
+  <style>
+    /* ========================================================
+       FREE TEST PAGE — SVENSKAPROV.SE
+       Blue palette (#006AA7), matches site design
+       ======================================================== */
+
+    .ft-wrap {
+      max-width: 780px;
+      margin: 2.5rem auto 4rem;
+      padding: 0 1.25rem;
+    }
+
+    /* ---- Card ---- */
+    .ft-card {
+      background: #fff;
+      border-radius: 1.5rem;
+      padding: 2.5rem 2.5rem 2rem;
+      box-shadow: 0 6px 28px rgba(0,0,0,0.08);
+    }
+    @media (max-width: 600px) {
+      .ft-card { padding: 1.5rem 1.25rem 1.5rem; }
+    }
+
+    /* ---- Progress ---- */
+    .ft-progress-bar {
+      height: 7px;
+      background: #daeeff;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+    .ft-progress-fill {
+      height: 100%;
+      border-radius: 999px;
+      transition: width 0.35s ease;
+      width: 0%;
+      /* Swedish flag gradient */
+      background: linear-gradient(
+        to right,
+        #006AA7 0%,
+        #006AA7 70%,
+        #FECC02 70%,
+        #FECC02 100%
+      );
+    }
+    .ft-progress-text {
+      font-size: 0.88rem;
+      color: #888;
+      text-align: center;
+      margin-bottom: 1.75rem;
+    }
+
+    /* ---- Section badge ---- */
+    .ft-section-badge {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.85rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+    }
+    .ft-section-badge.reading   { background: #daeeff; color: #004f7c; }
+    .ft-section-badge.listening { background: #ecfdf5; color: #065f46; }
+
+    /* ---- Question ---- */
+    .ft-question-section { display: none; }
+    .ft-question-section.active {
+      display: block;
+      animation: ftFadeIn 0.28s ease;
+    }
+    @keyframes ftFadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .ft-passage {
+      background: #f5fbff;
+      border-left: 3px solid #006AA7;
+      border-radius: 0 12px 12px 0;
+      padding: 1.1rem 1.3rem;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: #333;
+      margin-bottom: 1.5rem;
+      white-space: pre-wrap;
+    }
+
+    .ft-prompt {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #1a1a1a;
+      line-height: 1.5;
+      margin-bottom: 1.25rem;
+    }
+
+    /* ---- Audio ---- */
+    .ft-audio-block {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: #f0fdf4;
+      border: 1.5px solid #bbf7d0;
+      border-radius: 1rem;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    .ft-audio-icon { font-size: 1.6rem; flex-shrink: 0; }
+    .ft-audio-block audio { flex: 1; min-width: 0; }
+    .ft-audio-note { font-size: 0.82rem; color: #6b7280; margin-top: 0.4rem; }
+
+    /* ---- Options ---- */
+    .ft-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      margin-bottom: 2rem;
+    }
+    .ft-option {
+      padding: 0.9rem 1.2rem;
+      background: #fafafa;
+      border: 2px solid #e5e2db;
+      border-radius: 0.85rem;
+      cursor: pointer;
+      font-size: 0.97rem;
+      font-family: inherit;
+      text-align: left;
+      color: #333;
+      transition: border-color 0.18s, background 0.18s;
+      line-height: 1.4;
+    }
+    .ft-option:hover:not([disabled]) {
+      background: #edf6fc;
+      border-color: #7ec8e3;
+    }
+    .ft-option.selected {
+      background: #daeeff;
+      border-color: #006AA7;
+      color: #004f7c;
+      font-weight: 500;
+    }
+    .ft-option[disabled] { cursor: default; }
+
+    /* ---- Nav buttons ---- */
+    .ft-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+    .ft-btn {
+      padding: 0.8rem 1.6rem;
+      border-radius: 999px;
+      font-size: 0.97rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+    .ft-btn-primary { background: #006AA7; color: #fff; }
+    .ft-btn-primary:hover:not([disabled]) { background: #004f7c; transform: translateY(-1px); }
+    .ft-btn-secondary { background: #daeeff; color: #004f7c; }
+    .ft-btn-secondary:hover:not([disabled]) { background: #b8dcff; }
+    .ft-btn[disabled] { opacity: 0.45; cursor: not-allowed; transform: none !important; }
+
+    /* ---- Welcome screen ---- */
+    .ft-welcome { text-align: center; }
+    .ft-welcome h1 { font-size: 1.9rem; font-weight: 700; color: #1a1a1a; margin-bottom: 0.6rem; }
+    .ft-welcome .ft-sub { font-size: 1.05rem; color: #555; margin-bottom: 1.75rem; line-height: 1.6; }
+    .ft-info-box {
+      background: #f5fbff;
+      border-radius: 1rem;
+      padding: 1.3rem 1.6rem;
+      margin-bottom: 2rem;
+      text-align: left;
+    }
+    .ft-info-box h3 { font-size: 0.95rem; font-weight: 700; color: #1a1a1a; margin-bottom: 0.8rem; }
+    .ft-info-box ul { list-style: none; padding: 0; margin: 0; }
+    .ft-info-box li {
+      font-size: 0.93rem; color: #555; padding: 0.4rem 0;
+      display: flex; gap: 0.5rem;
+    }
+    .ft-info-box li::before { content: "✓"; color: #006AA7; font-weight: 700; flex-shrink: 0; }
+
+    /* ---- Results screen ---- */
+    .ft-results { display: none; }
+    .ft-results.active { display: block; text-align: center; }
+    .ft-results h2 { font-size: 1.6rem; font-weight: 700; color: #1a1a1a; margin-bottom: 0.5rem; }
+    .ft-score-msg { font-size: 1rem; color: #555; margin-bottom: 1.5rem; }
+
+    .ft-score-ring {
+      width: 160px; height: 160px; border-radius: 50%;
+      margin: 1.5rem auto;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.6rem; font-weight: 800; color: #fff;
+      background: linear-gradient(135deg, #006AA7 0%, #4db8ff 100%);
+      box-shadow: 0 8px 28px rgba(0,106,167,0.28);
+    }
+
+    .ft-breakdown {
+      background: #f5fbff;
+      border-radius: 1rem;
+      padding: 1.3rem 1.5rem;
+      margin: 1.5rem 0;
+      text-align: left;
+    }
+    .ft-breakdown h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.9rem; color: #1a1a1a; }
+    .ft-breakdown-item {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.65rem 0; border-bottom: 1px solid #daeeff;
+      font-size: 0.95rem; color: #444;
+    }
+    .ft-breakdown-item:last-child { border-bottom: none; }
+    .ft-breakdown-item strong { color: #1a1a1a; }
+
+    /* ---- CTA box ---- */
+    .ft-cta-box {
+      background: linear-gradient(135deg, #006AA7 0%, #004f7c 100%);
+      color: #fff; border-radius: 1.3rem;
+      padding: 1.8rem 2rem; margin-top: 1.75rem; text-align: left;
+    }
+    .ft-cta-box h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.9rem; }
+    .ft-cta-box ul { list-style: none; padding: 0; margin: 0 0 1.4rem; }
+    .ft-cta-box li { font-size: 0.95rem; padding: 0.4rem 0; display: flex; gap: 0.5rem; }
+    .ft-cta-box li::before { content: "✓"; font-weight: 700; flex-shrink: 0; }
+    .ft-btn-white {
+      display: inline-block; background: #fff; color: #006AA7;
+      font-weight: 700; padding: 0.85rem 1.75rem; border-radius: 999px;
+      text-decoration: none; font-size: 0.97rem; transition: background 0.2s;
+    }
+    .ft-btn-white:hover { background: #daeeff; }
+    .ft-restart-btn { margin-top: 1.25rem; }
+  </style>
+</head>
+
+<body>
+
+<header class="cl-header">
+  <div class="cl-header-inner">
+    <a href="/" class="cl-logo">
+      <img src="/assets/images/se.svg" alt="SE" />
+      <span>SvenskaProv.se</span>
+    </a>
+    <nav class="cl-nav">
+      <a href="/gratis-test/" class="active">Gratis test</a>
+      <a href="/artiklar/">Artiklar</a>
+      <a href="/kontakt/">Kontakt</a>
+      <a href="https://civiclearn.com/svenskaprov/login">Logga in</a>
+    </nav>
+    <div class="cl-right">
+      <div class="cl-powered">powered by <span>CivicLearn</span></div>
+      <a href="https://civiclearn.com/svenskaprov/checkout" class="cl-btn">Full tillgång</a>
+    </div>
+  </div>
+</header>
+
+
+<div class="ft-wrap">
+  <div class="ft-card">
+
+    <!-- ==================== WELCOME SCREEN ==================== -->
+    <div id="ft-welcome" class="ft-welcome">
+      <h1>Gratis provtest</h1>
+      <p class="ft-sub">
+        Testa din svenska med frågor från språkprovet för medborgarskap.<br>
+        Läsförståelse och hörförståelse på B1-nivå – precis som i det riktiga provet.
+      </p>
+
+      <div class="ft-info-box">
+        <h3>Vad ingår i det här testet?</h3>
+        <ul>
+          <li>5 läsförståelsefrågor (baserade på tre olika texter)</li>
+          <li>3 hörförståelsefrågor (en fråga per ljudklipp)</li>
+          <li>Automatisk rättning och resultat direkt</li>
+          <li>Ingen registrering krävs</li>
+          <li>Tar ungefär 15 minuter</li>
+        </ul>
+      </div>
+
+      <button class="ft-btn ft-btn-primary" onclick="startTest()">Starta testet</button>
+    </div>
+
+
+    <!-- ==================== TEST SCREEN ==================== -->
+    <div id="ft-test" style="display:none;">
+      <div class="ft-progress-bar">
+        <div id="ft-progress-fill" class="ft-progress-fill"></div>
+      </div>
+      <div id="ft-progress-text" class="ft-progress-text">Fråga 1 av 8</div>
+
+      <div id="ft-questions-container"></div>
+
+      <div class="ft-nav">
+        <button id="ft-prev-btn" class="ft-btn ft-btn-secondary" onclick="prevQuestion()" style="display:none;">← Föregående</button>
+        <button id="ft-next-btn" class="ft-btn ft-btn-primary" onclick="nextQuestion()" disabled>Nästa →</button>
+        <button id="ft-submit-btn" class="ft-btn ft-btn-primary" onclick="submitTest()" style="display:none;" disabled>Se resultat</button>
+      </div>
+    </div>
+
+
+    <!-- ==================== RESULTS SCREEN ==================== -->
+    <div id="ft-results" class="ft-results">
+      <h2>Test avslutat!</h2>
+      <div class="ft-score-ring">
+        <span id="ft-final-score">0%</span>
+      </div>
+      <p id="ft-score-msg" class="ft-score-msg"></p>
+
+      <div class="ft-breakdown">
+        <h3>Resultat per delområde</h3>
+        <div class="ft-breakdown-item">
+          <span>Läsförståelse</span>
+          <strong id="ft-reading-score">0/5</strong>
+        </div>
+        <div class="ft-breakdown-item">
+          <span>Hörförståelse</span>
+          <strong id="ft-listening-score">0/3</strong>
+        </div>
+        <div class="ft-breakdown-item">
+          <span>Totalt</span>
+          <strong id="ft-total-score">0/8</strong>
+        </div>
+      </div>
+
+      <div class="ft-cta-box">
+        <h3>Redo för det fullständiga provet?</h3>
+        <ul>
+          <li>10 kompletta simuleringar med alla fyra färdigheter</li>
+          <li>Läsförståelse och hörförståelse på B1-nivå</li>
+          <li>AI-återkoppling på skriftliga och muntliga svar</li>
+          <li>Detaljerad statistik och framstegsöversikt</li>
+          <li>Fungerar på alla enheter – mobil, surfplatta och dator</li>
+        </ul>
+        <a href="https://civiclearn.com/svenskaprov/checkout" class="ft-btn-white">Få fullständig tillgång</a>
+      </div>
+
+      <button class="ft-btn ft-btn-secondary ft-restart-btn" onclick="restartTest()">Gör om testet</button>
+    </div>
+
+  </div><!-- /.ft-card -->
+</div><!-- /.ft-wrap -->
+
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>© <span id="footer-year"></span> SvenskaProv.se — medlem i CivicLearn-nätverket.</div>
+    <div class="footer-links">
+      <a href="/gratis-test/">Gratis test</a>
+      <a href="/artiklar/">Artiklar</a>
+      <a href="/kontakt/">Kontakt</a>
+      <a href="/policyer/">Policyer</a>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+// ================================================================
+// TEST DATA — SvenskaProv.se
+// Reading: 3 passages, 5 questions (B1 Swedish everyday topics)
+// Listening: 3 audio clips, 1 question each
+// ================================================================
+
+const PASSAGES = {
+
+  reading1: "Till Hyresvärden,\nJag skriver för att informera om ett problem med vattenläckan i badrummet på min lägenhet på Björkgatan 12, lgh 2201. Läckan uppstod förra veckan och orsakar fuktskador på väggen.\n\nJag har försökt täta med fogmassa, men problemet kvarstår. Jag ber er att skicka en rörmokare snarast möjligt för att åtgärda felet. Jag är tillgänglig vardagar mellan klockan 8 och 17.\n\nMed vänliga hälsningar,\nMaria Johansson",
+
+  reading2: "Sverige är en konstitutionell monarki med parlamentariskt styrelseskick. Det innebär att kungen är statschef men saknar politisk makt. Den politiska makten ligger hos riksdagen och regeringen.\n\nRiksdagen är det högsta beslutande organet och består av 349 ledamöter som väljs vart fjärde år. Alla svenska medborgare som har fyllt 18 år har rätt att rösta i riksdagsvalet. Statsministern leder regeringen och utses av riksdagen efter varje val.\n\nSverige fick allmän rösträtt 1921, vilket innebär att alla vuxna medborgare – oavsett kön, inkomst eller bakgrund – fick rätt att rösta.",
+
+  reading3: "Folkhälsomyndigheten rekommenderar att alla invånare i Sverige vaccinerar sig mot säsongsinfluensa inför vintern. Vaccinet är kostnadsfritt för riskgrupper, inklusive äldre över 65 år, gravida och personer med vissa kroniska sjukdomar.\n\nVaccination minskar risken för allvarlig sjukdom och sjukhusvistelse. Det tar ungefär två veckor efter vaccinationen innan immunförsvaret är fullt skyddat. Boka din tid via 1177 eller din närmaste vårdcentral."
+};
+
+const TEST_QUESTIONS = [
+
+  // ── READING 1 (hyresbrev) ──
+  {
+    id: "r1a",
+    section: "reading",
+    passageKey: "reading1",
+    showPassage: true,
+    prompt: "Varför skriver Maria Johansson till hyresvärden?",
+    options: [
+      { id: "o1", text: "Hon vill byta lägenhet" },
+      { id: "o2", text: "Det finns en vattenläcka i lägenheten" },
+      { id: "o3", text: "Hon har problem med grannar" }
+    ],
+    correct: "o2"
+  },
+  {
+    id: "r1b",
+    section: "reading",
+    passageKey: "reading1",
+    showPassage: false,
+    prompt: "Vad har Maria redan gjort för att lösa problemet?",
+    options: [
+      { id: "o1", text: "Ingenting – hon har väntat på hyresvärden" },
+      { id: "o2", text: "Ringt en rörmokare" },
+      { id: "o3", text: "Försökt täta med fogmassa" }
+    ],
+    correct: "o3"
+  },
+
+  // ── READING 2 (Sverige, demokrati) ──
+  {
+    id: "r2a",
+    section: "reading",
+    passageKey: "reading2",
+    showPassage: true,
+    prompt: "Vilket av följande stämmer om kungen i Sverige?",
+    options: [
+      { id: "o1", text: "Kungen leder regeringen" },
+      { id: "o2", text: "Kungen är statschef men har ingen politisk makt" },
+      { id: "o3", text: "Kungen utser statsministern" }
+    ],
+    correct: "o2"
+  },
+  {
+    id: "r2b",
+    section: "reading",
+    passageKey: "reading2",
+    showPassage: false,
+    prompt: "Hur ofta väljs riksdagens ledamöter?",
+    options: [
+      { id: "o1", text: "Vart tredje år" },
+      { id: "o2", text: "Vart femte år" },
+      { id: "o3", text: "Vart fjärde år" }
+    ],
+    correct: "o3"
+  },
+
+  // ── READING 3 (vaccination) ──
+  {
+    id: "r3a",
+    section: "reading",
+    passageKey: "reading3",
+    showPassage: true,
+    prompt: "Vem kan få influensavaccinet kostnadsfritt enligt texten?",
+    options: [
+      { id: "o1", text: "Alla som bor i Sverige" },
+      { id: "o2", text: "Riskgrupper, till exempel äldre och gravida" },
+      { id: "o3", text: "Enbart barn under 12 år" }
+    ],
+    correct: "o2"
+  },
+
+  // ── LISTENING 1 ──
+  {
+    id: "l1",
+    section: "listening",
+    passageKey: null,
+    showPassage: false,
+    prompt: "Vilken är den viktigaste åtgärden som föreslås för att hantera en stor olycka eller kris?",
+    audio: "/assets/audio/Om-krisen-kommer.mp3",
+    audioNote: "Lyssna på ljudklippet och välj rätt svar. Du kan lyssna flera gånger.",
+    options: [
+      { id: "o1", text: "Packa en krislåda med konserver" },
+      { id: "o2", text: "Klara familjens grundbehov i några dygn" },
+      { id: "o3", text: "Ladda elektronik i bilen" }
+    ],
+    correct: "o2"
+  },
+
+  // ── LISTENING 2 ──
+  {
+    id: "l2",
+    section: "listening",
+    passageKey: null,
+    showPassage: false,
+    prompt: "Vad är ett av de nya kraven som regeringen har beslutat om för A-traktorer?",
+    audio: "/assets/audio/Nya-regler-for-A-traktorer-fran-och-med-31-augusti-detta-galler-aftonbladet-nyheter.mp3",
+    audioNote: "Lyssna på ljudklippet och välj rätt svar. Du kan lyssna flera gånger.",
+    options: [
+      { id: "o1", text: "Obligatorisk cykelhjälm" },
+      { id: "o2", text: "Användande av bilbälte" },
+      { id: "o3", text: "Maximal hastighet på 50 km/timme" }
+    ],
+    correct: "o2"
+  },
+
+  // ── LISTENING 3 ──
+  {
+    id: "l3",
+    section: "listening",
+    passageKey: null,
+    showPassage: false,
+    prompt: "Vilket företag levererade den kaka som Orla Baxendale åt och som orsakade hennes död?",
+    audio: "/assets/audio/25-arig-kvinna-at-kaka-dog.mp3",
+    audioNote: "Lyssna på ljudklippet och välj rätt svar. Du kan lyssna flera gånger.",
+    options: [
+      { id: "o1", text: "Cookie Lovers" },
+      { id: "o2", text: "Cookie Delights" },
+      { id: "o3", text: "Cookies United" }
+    ],
+    correct: "o3"
+  }
+
+];
+
+// ================================================================
+// STATE
+// ================================================================
+let currentIndex = 0;
+let userAnswers  = {};
+
+// ================================================================
+// START / RESTART
+// ================================================================
+function startTest() {
+  document.getElementById("ft-welcome").style.display = "none";
+  document.getElementById("ft-test").style.display    = "block";
+  renderQuestions();
+  showQuestion(0);
+}
+
+function restartTest() {
+  currentIndex = 0;
+  userAnswers  = {};
+  document.getElementById("ft-results").classList.remove("active");
+  document.getElementById("ft-test").style.display    = "none";
+  document.getElementById("ft-welcome").style.display = "block";
+  document.getElementById("ft-questions-container").innerHTML = "";
+}
+
+// ================================================================
+// RENDER
+// ================================================================
+function renderQuestions() {
+  var container = document.getElementById("ft-questions-container");
+  container.innerHTML = "";
+
+  TEST_QUESTIONS.forEach(function(q, idx) {
+    var sec = document.createElement("div");
+    sec.className = "ft-question-section";
+    sec.id = "ft-q-" + idx;
+
+    var html = "";
+
+    if (q.section === "reading") {
+      html += '<span class="ft-section-badge reading">Läsförståelse</span>';
+    } else {
+      html += '<span class="ft-section-badge listening">Hörförståelse</span>';
+    }
+
+    if (q.showPassage && q.passageKey && PASSAGES[q.passageKey]) {
+      html += '<div class="ft-passage">' + escapeHtml(PASSAGES[q.passageKey]) + '</div>';
+    }
+
+    if (q.audio) {
+      html += '<div class="ft-audio-block">';
+      html += '<span class="ft-audio-icon">🔊</span>';
+      html += '<div style="flex:1;min-width:0;">';
+      html += '<audio controls preload="none" style="width:100%;">';
+      html += '<source src="' + q.audio + '" type="audio/mpeg">';
+      html += 'Din webbläsare stöder inte ljuduppspelning.';
+      html += '</audio>';
+      if (q.audioNote) {
+        html += '<div class="ft-audio-note">' + q.audioNote + '</div>';
+      }
+      html += '</div></div>';
+    }
+
+    html += '<div class="ft-prompt">' + q.prompt + '</div>';
+
+    html += '<div class="ft-options">';
+    q.options.forEach(function(opt) {
+      html += '<button class="ft-option"'
+            + ' data-qid="' + q.id + '"'
+            + ' data-oid="' + opt.id + '"'
+            + ' onclick="selectOption(\'' + q.id + '\',\'' + opt.id + '\',this)">'
+            + escapeHtml(opt.text)
+            + '</button>';
+    });
+    html += '</div>';
+
+    sec.innerHTML = html;
+    container.appendChild(sec);
+  });
+}
+
+// ================================================================
+// NAVIGATION
+// ================================================================
+function showQuestion(idx) {
+  document.querySelectorAll(".ft-question-section").forEach(function(el) {
+    el.classList.remove("active");
+  });
+  document.getElementById("ft-q-" + idx).classList.add("active");
+  currentIndex = idx;
+  updateProgress();
+  updateNavButtons();
+
+  var q = TEST_QUESTIONS[idx];
+  if (userAnswers[q.id]) {
+    var prev = document.querySelector(
+      '[data-qid="' + q.id + '"][data-oid="' + userAnswers[q.id] + '"]'
+    );
+    if (prev) prev.classList.add("selected");
+  }
+}
+
+function nextQuestion() {
+  if (currentIndex < TEST_QUESTIONS.length - 1) showQuestion(currentIndex + 1);
+}
+
+function prevQuestion() {
+  if (currentIndex > 0) showQuestion(currentIndex - 1);
+}
+
+// ================================================================
+// OPTION SELECTION
+// ================================================================
+function selectOption(qid, oid, btn) {
+  document.querySelectorAll('[data-qid="' + qid + '"]').forEach(function(el) {
+    el.classList.remove("selected");
+  });
+  btn.classList.add("selected");
+  userAnswers[qid] = oid;
+  document.getElementById("ft-next-btn").disabled = false;
+  if (currentIndex === TEST_QUESTIONS.length - 1) {
+    document.getElementById("ft-submit-btn").disabled = false;
+  }
+}
+
+// ================================================================
+// PROGRESS
+// ================================================================
+function updateProgress() {
+  var total = TEST_QUESTIONS.length;
+  var pct   = ((currentIndex + 1) / total) * 100;
+  document.getElementById("ft-progress-fill").style.width = pct + "%";
+  document.getElementById("ft-progress-text").textContent =
+    "Fråga " + (currentIndex + 1) + " av " + total;
+}
+
+function updateNavButtons() {
+  var prev   = document.getElementById("ft-prev-btn");
+  var next   = document.getElementById("ft-next-btn");
+  var submit = document.getElementById("ft-submit-btn");
+  var q      = TEST_QUESTIONS[currentIndex];
+  var hasAnswer = !!userAnswers[q.id];
+
+  prev.style.display = currentIndex > 0 ? "block" : "none";
+
+  if (currentIndex === TEST_QUESTIONS.length - 1) {
+    next.style.display   = "none";
+    submit.style.display = "block";
+    submit.disabled      = !hasAnswer;
+  } else {
+    next.style.display   = "block";
+    submit.style.display = "none";
+    next.disabled        = !hasAnswer;
+  }
+}
+
+// ================================================================
+// SUBMIT & SCORE
+// ================================================================
+function submitTest() {
+  var readingCorrect   = 0;
+  var listeningCorrect = 0;
+
+  TEST_QUESTIONS.forEach(function(q) {
+    if (userAnswers[q.id] === q.correct) {
+      if (q.section === "reading")   readingCorrect++;
+      if (q.section === "listening") listeningCorrect++;
+    }
+  });
+
+  var totalCorrect = readingCorrect + listeningCorrect;
+  var totalQ       = TEST_QUESTIONS.length;
+  var pct          = Math.round((totalCorrect / totalQ) * 100);
+
+  document.getElementById("ft-test").style.display = "none";
+  document.getElementById("ft-results").classList.add("active");
+
+  document.getElementById("ft-final-score").textContent     = pct + "%";
+  document.getElementById("ft-reading-score").textContent   = readingCorrect + "/5";
+  document.getElementById("ft-listening-score").textContent = listeningCorrect + "/3";
+  document.getElementById("ft-total-score").textContent     = totalCorrect + "/" + totalQ;
+
+  var msg = "";
+  if (pct >= 80)      msg = "Utmärkt! Du är väl förberedd för språkprovet.";
+  else if (pct >= 60) msg = "Bra jobbat! Fortsätt träna för ett säkert resultat.";
+  else if (pct >= 40) msg = "Du är på rätt väg – mer träning ger bättre resultat.";
+  else                msg = "Fortsätt öva – regelbunden träning ger stora framsteg!";
+
+  document.getElementById("ft-score-msg").textContent = msg;
+}
+
+// ================================================================
+// UTILS
+// ================================================================
+function escapeHtml(str) {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+document.getElementById("footer-year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
