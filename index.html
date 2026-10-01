@@ -30,6 +30,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/css/newhome.css">
+  <link rel="stylesheet" href="/assets/css/home-v2.css">
   <style>
     .premium-pricing { margin-top: 3rem; text-align: center; }
     .pricing-card { background: #fff; border-radius: 1.6rem; max-width: 540px; margin: 0 auto; overflow: hidden; box-shadow: 0 16px 34px rgba(0,0,0,0.08); }
@@ -67,57 +68,62 @@
 </head>
 <body>
 
-<header class="cl-header">
-  <div class="cl-header-inner">
-    <a href="/" class="cl-logo">
-      <img src="/assets/images/se.svg" alt="SE" />
-      <span>SvenskaProv.se</span>
-    </a>
-    <nav class="cl-nav">
+<header class="hdr" id="hdr">
+  <div class="wrap hdr-in">
+    <a href="/" class="logo"><img alt="SE" src="/assets/images/se.svg"/><span>SvenskaProv.se</span></a>
+
+    <button class="burger" type="button" aria-label="Meny" aria-expanded="false" aria-controls="site-nav"
+      onclick="var o=document.getElementById('hdr').classList.toggle('menu-open');this.setAttribute('aria-expanded',o)">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+
+    <nav class="nav" id="site-nav">
       <a href="/gratis-test/">Gratis test</a>
       <a href="/artiklar/">Artiklar</a>
       <a href="/kontakt/">Kontakt</a>
       <a href="https://civiclearn.com/svenskaprov/login">Logga in</a>
     </nav>
-    <div class="cl-right">
-      <div class="cl-powered">powered by <span>CivicLearn</span></div>
-      <a href="https://civiclearn.com/svenskaprov/checkout" class="cl-btn">Full tillgång</a>
+
+    <div class="hdr-right">
+      <div class="powered">
+        <div>powered by <b>CivicLearn</b></div>
+        <a class="tp" href="https://www.trustpilot.com/review/civiclearn.com" target="_blank" rel="noopener" aria-label="CivicLearn på Trustpilot: 4,5 av 5">
+          <span class="tp-stars" aria-hidden="true">
+            <svg viewBox="0 0 25 25"><rect width="25" height="25" fill="#00b67a"/><path fill="#fff" d="M12.5 4.3l2.1 5.1 5.5.4-4.2 3.6 1.3 5.4-4.7-3-4.7 3 1.3-5.4-4.2-3.6 5.5-.4z"/></svg>
+            <svg viewBox="0 0 25 25"><rect width="25" height="25" fill="#00b67a"/><path fill="#fff" d="M12.5 4.3l2.1 5.1 5.5.4-4.2 3.6 1.3 5.4-4.7-3-4.7 3 1.3-5.4-4.2-3.6 5.5-.4z"/></svg>
+            <svg viewBox="0 0 25 25"><rect width="25" height="25" fill="#00b67a"/><path fill="#fff" d="M12.5 4.3l2.1 5.1 5.5.4-4.2 3.6 1.3 5.4-4.7-3-4.7 3 1.3-5.4-4.2-3.6 5.5-.4z"/></svg>
+            <svg viewBox="0 0 25 25"><rect width="25" height="25" fill="#00b67a"/><path fill="#fff" d="M12.5 4.3l2.1 5.1 5.5.4-4.2 3.6 1.3 5.4-4.7-3-4.7 3 1.3-5.4-4.2-3.6 5.5-.4z"/></svg>
+            <svg viewBox="0 0 25 25"><rect width="12.5" height="25" fill="#00b67a"/><rect x="12.5" width="12.5" height="25" fill="#dcdce6"/><path fill="#fff" d="M12.5 4.3l2.1 5.1 5.5.4-4.2 3.6 1.3 5.4-4.7-3-4.7 3 1.3-5.4-4.2-3.6 5.5-.4z"/></svg>
+          </span>
+          <span class="tp-word">Trustpilot</span>
+        </a>
+      </div>
+      <a href="https://civiclearn.com/svenskaprov/checkout" class="btn btn-primary">Full tillgång</a>
     </div>
   </div>
 </header>
 
 <section class="hero">
-  <div class="hero-center hero-center--spaced">
-
-    <h1 class="hero-title">
-      <span>Klara språkkravet<br></span>
-      och få svenskt medborgarskap
-    </h1>
-
-    <p class="hero-subtitle">
-      Strukturerade övningstester, AI-återkoppling och träning i alla fyra färdigheter.<br>
-      Bygg B1 i förståelse och A2 i produktion — de nivåer som krävs för medborgarskap.
-    </p>
-
-    <div class="hero-actions">
-      <a href="https://civiclearn.com/svenskaprov/checkout" class="hero-primary-btn">Börja förberedelsen</a>
-      <a href="/gratis-test/" class="hero-secondary-btn">Prova gratis</a>
-    </div>
-
-    <div class="hero-social">
-      <div class="hero-social-top">
-        <span class="rating-stars">★★★★★</span>
-        <span class="rating-word">Utmärkt</span>
+  <div class="wrap hero-grid">
+    <div>
+      
+      
+      <h1><span>Klara språkkravet</span> och få svenskt medborgarskap</h1>
+      <p class="hero-sub">Strukturerade övningstester, AI-återkoppling och träning i alla fyra färdigheter. Bygg B1 i förståelse och A2 i produktion — de nivåer som krävs för medborgarskap.</p>
+      <div class="hero-ctas">
+        <a href="https://civiclearn.com/svenskaprov/checkout" class="btn btn-primary" id="hero-cta">Börja förberedelsen</a>
+        <a href="/gratis-test/" class="btn btn-ghost">Prova gratis</a>
       </div>
-      <div class="hero-social-sub">
-        Tusentals kandidater förberedda<br class="mobile-only">genom CivicLearn-nätverket.
+      <p class="hero-meta"><strong>699 kr, engångsbetalning</strong> · livstidsåtkomst · ingen prenumeration</p>
+      <div class="rating">
+        <span class="stars" aria-hidden="true">★★★★★</span>
+        <strong>Utmärkt</strong>
+        <span>Tusentals kandidater förberedda genom CivicLearn-nätverket.</span>
       </div>
     </div>
-
-    <div class="hero-image-wide">
-      <img src="/assets/images/devices-svenskaprov.webp" alt="SvenskaProv-plattformen på olika enheter">
+    <div class="hero-img">
+      <img src="/assets/images/devices-svenskaprov.webp" alt="SvenskaProv-plattformen på olika enheter" width="2962" height="1868" fetchpriority="high" decoding="async">
     </div>
-
   </div>
 </section>
 
@@ -206,7 +212,7 @@
   </div>
 </section>
 
-<section class="inline-test">
+<section class="inline-test" id="free-questions">
   <div class="inline-test-inner">
     <h2 class="inline-test-heading">Testa dina kunskaper</h2>
     <p class="inline-test-lead">Tre snabba frågor för att se var du befinner dig</p>
@@ -223,7 +229,7 @@
   </div>
 </section>
 
-<section class="premium-pricing">
+<section class="premium-pricing" id="pricing">
   <div class="pricing-card">
     <div class="pricing-top"><span class="pricing-tag">Premium-tillgång</span></div>
     <div class="pricing-price">
@@ -327,6 +333,19 @@
   <p class="home-articles-more"><a href="/artiklar/">Se alla artiklar →</a></p>
 </section>
 
+<!-- CLOSING CTA -->
+<section class="closing-wrap" style="padding:24px 0 40px">
+  <div class="wrap">
+    <div class="closing">
+      <div>
+        <h2>Redo att klara språkkravet?</h2>
+        <p>Fullständiga övningstester i alla fyra färdigheter och AI-återkoppling på ett ställe. 699 kr, en gång.</p>
+      </div>
+      <a href="https://civiclearn.com/svenskaprov/checkout" class="btn btn-primary">Börja förberedelsen</a>
+    </div>
+  </div>
+</section>
+
 <section class="compat-section">
   <div class="compat-inner">
     <h2 class="compat-title">Kompatibel med alla enheter och moderna webbläsare</h2>
@@ -374,6 +393,40 @@ document.querySelectorAll(".faq-item").forEach(item => {
   try { const res = await fetch('/artiklar/articles.json'); all = await res.json(); } catch(e) { return; }
   const selected = all.sort(() => Math.random() - 0.5).slice(0, 6);
   grid.innerHTML = selected.map(a => `<a href="${a.url}" class="home-article-card"><img src="${a.image}" alt="${a.title}" onerror="this.style.display='none'"><div class="home-article-body"><h3>${a.title}</h3><p>${a.desc}</p></div></a>`).join('');
+})();
+</script>
+<!-- Mobile sticky CTA (appears once the hero button scrolls away, hides over the quiz and pricing) -->
+<div class="sticky-cta" id="sticky-cta" aria-hidden="true">
+  <span><b>699 kr, en gång</b>Livstidsåtkomst</span>
+  <a href="https://civiclearn.com/svenskaprov/checkout" class="btn btn-primary" tabindex="-1">Kom igång</a>
+</div>
+
+<script>
+(function(){
+  var s=document.getElementById('sticky-cta'), h=document.getElementById('hero-cta'), p=document.getElementById('pricing'), q=document.getElementById('free-questions');
+  if(!('IntersectionObserver' in window)||!s||!h) return;
+  var heroGone=false, priceVisible=false, quizVisible=false;
+  function upd(){var on=heroGone&&!priceVisible&&!quizVisible;s.classList.toggle('show',on);s.setAttribute('aria-hidden',on?'false':'true');}
+  new IntersectionObserver(function(e){heroGone=!e[0].isIntersecting&&e[0].boundingClientRect.top<0;upd();}).observe(h);
+  if(p) new IntersectionObserver(function(e){priceVisible=e[0].isIntersecting;upd();},{threshold:.15}).observe(p);
+  if(q) new IntersectionObserver(function(e){quizVisible=e[0].isIntersecting;upd();},{threshold:.05}).observe(q);
+})();
+</script>
+<script>
+/* Phones: free questions become a swipeable row and auto-advance after each answer */
+(function(){
+  var c=document.getElementById('inline-test-questions'); if(!c||!window.matchMedia) return;
+  var mq=window.matchMedia('(max-width:860px)');
+  c.addEventListener('click',function(e){
+    var b=e.target.closest&&e.target.closest('.inline-option-btn'); if(!b||!mq.matches) return;
+    var card=b.closest('.inline-question-card'); if(!card) return;
+    var wrong=!!card.querySelector('.inline-wrong');
+    setTimeout(function(){
+      var n=card.nextElementSibling; if(!n) return;
+      var pad=parseInt(getComputedStyle(c).paddingLeft,10)||0;
+      c.scrollTo({left:n.offsetLeft-pad,behavior:'smooth'});
+    }, wrong?2000:1000);
+  });
 })();
 </script>
 </body>
